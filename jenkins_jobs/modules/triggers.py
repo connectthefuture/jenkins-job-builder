@@ -792,6 +792,25 @@ def timed(registry, xml_parent, data):
     XML.SubElement(scmtrig, 'spec').text = data
 
 
+def periodic_interval(registry, xml_parent, data):
+    """yaml: periodic-interval
+    Trigger builds periodically if not otherwise run.
+
+    :Parameter: number of minutes between runs
+
+    Example::
+
+      triggers:
+        - periodic-interval: 5
+    """
+    trig = XML.SubElement(xml_parent,
+                             'com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger')
+    trig.set('plugin', 'cloudbees-folder')
+
+    XML.SubElement(trig, 'spec').text = '*/12 * * * *'
+    XML.SubElement(trig, 'interval').text = str(data * 60000)
+
+
 def bitbucket(registry, xml_parent, data):
     """yaml: bitbucket
     Trigger a job when bitbucket repository is pushed to.
