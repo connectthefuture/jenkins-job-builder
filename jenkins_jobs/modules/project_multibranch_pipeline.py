@@ -31,6 +31,7 @@ interpreted by the python str.format() command.
 
 :Job Parameters:
     * **remote** (`str`): url to git repo
+    * **credentials-id** (`str`): UUID of credentials to use with remote
     * **includes** (`str`): branches to include, space separated list of wildcards
     * **excludes** (`str`): branches to exclude, space separated list of wildcards
 
@@ -65,6 +66,8 @@ class MultiBranchPipeline(jenkins_jobs.modules.base.Base):
                        })
         if 'remote' in data:
             XML.SubElement(xml_source, 'remote').text = data['remote']
+        if 'credentials-id' in data:
+            XML.SubElement(xml_source, 'credentialsId').text = data['credentials-id']
         if 'includes' in data:
             XML.SubElement(xml_source, 'includes').text = data['includes']
         if 'excludes' in data:
